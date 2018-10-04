@@ -21,7 +21,7 @@
             $client = $dao->buscarPorId($id);  
                 
             $response = $response->withJson($client);
-            $response = $response->wit-hHeader('Content-type', 'application/json');    
+            $response = $response->withHeader('Content-type', 'application/json');    
             return $response;
         }
         public function inserir($request, $response, $args)
