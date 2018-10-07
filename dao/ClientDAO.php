@@ -1,63 +1,63 @@
 <?php
-    include_once 'Client.php';
+    include_once 'model/Client.php';
 	include_once 'PDOFactory.php';
 
-    class ClientDAO                 /*  AJUSTAR PASSAGEM DE PARÂMETROS, SQLs, .... */
+    class ClientDAO
     {
-        public function inserir(Client $client)
-        {
-            $qInserir = "INSERT INTO tb_client(nome,preco) VALUES (:nome,:preco)";            
-            $pdo = PDOFactory::getConexao();
-            $comando = $pdo->prepare($qInserir);
-            $comando->bindParam(":nome",$client->nome);
-            $comando->bindParam(":preco",$client->preco);
-            $comando->execute();
-            $client->id = $pdo->lastInsertId();
-            return $client;
-        }
-
-        public function deletar($id)
-        {
-            $qDeletar = "DELETE FROM tb_client WHERE id=:id";            
-            $pdo = PDOFactory::getConexao();
-            $comando = $pdo->prepare($qDeletar);
-            $comando->bindParam(":id",$id);
-            $comando->execute();
-        }
-
-        public function atualizar(Client $client)
-        {
-            $qAtualizar = "UPDATE tb_client SET nome=:nome, preco=:preco WHERE id=:id";            
-            $pdo = PDOFactory::getConexao();
-            $comando = $pdo->prepare($qAtualizar);
-            $comando->bindParam(":nome",$client->nome);
-            $comando->bindParam(":preco",$client->preco);
-            $comando->bindParam(":id",$client->id);
-            $comando->execute();        
-        }
-
-        public function listar()
+        public function list()
         {
 		    $query = 'SELECT * FROM tb_client';
     		$pdo = PDOFactory::getConexao();
 	    	$comando = $pdo->prepare($query);
     		$comando->execute();
-            $clients=array();	
+            $clients = [];
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
-			    $clients[] = new client($row->id,$row->nome,$row->preco);
+			    $clients[] = new client($row->id_client, $row->name_client, $row->phone_nro, $row->email, $row->pwd);
             }
             return $clients;
         }
-
-        public function buscarPorId($id)
+        public function create(Client $client)
         {
- 		    $query = 'SELECT * FROM tb_client WHERE id=:id';		
+            $qInsert = "INSERT INTO tb_client(name_client, phone_nro, email, pwd) VALUES (:name_client, :phone_nro, :email, :pwd)";            
+            $pdo = PDOFactory::getConexao();
+            $comando = $pdo->prepare($qInsert);
+            $comando->bindParam(":name_client", $client->name_client);
+            $comando->bindParam(":phone_nro",   $client->phone_nro);
+            $comando->bindParam(":email",       $client->email);
+            $comando->bindParam(":pwd",         $client->pwd);
+            $comando->execute();
+            $client->id = $pdo->lastInsertId();
+            return $client;
+        }
+        public function read($id_client)
+        {
+ 		    $query = 'SELECT * FROM tb_client WHERE id_client=:id_client';		
             $pdo = PDOFactory::getConexao(); 
 		    $comando = $pdo->prepare($query);
-		    $comando->bindParam ('id', $id);
+		    $comando->bindParam (":id_client", $id_client);
 		    $comando->execute();
 		    $result = $comando->fetch(PDO::FETCH_OBJ);
-		    return new client($result->id,$result->nome,$result->preco);           
+		    return new client($result->id_client, $result->name_client, $result->phone_nro, $result->email, $result->pwd);           
+        }
+        public function delete($id_client)
+        {
+            $qDelete = "DELETE FROM tb_client WHERE id_client=:id_client";            
+            $pdo = PDOFactory::getConexao();
+            $comando = $pdo->prepare($qDelete);
+            $comando->bindParam(":id_client", $id_client);
+            $comando->execute();
+        }
+        public function update(Client $client)
+        {
+            $qUpdate = "UPDATE tb_client SET name_client=:name_client, phone_nro=:phone_nro, email=:email, pwd=:pwd WHERE id_client=:id_client";            
+            $pdo = PDOFactory::getConexao();
+            $comando = $pdo->prepare($qUpdate);
+            $comando->bindParam(":id_client",   $client->id_client);
+            $comando->bindParam(":name_client", $client->name_client);
+            $comando->bindParam(":phone_nro",   $client->phone_nro);
+            $comando->bindParam(":email",       $client->email);
+            $comando->bindParam(":pwd",         $client->pwd);
+            $comando->execute();
         }
     }
 ?>
