@@ -12,7 +12,7 @@
     		$comando->execute();
             $clients = [];
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
-			    $clients[] = new client($row->id_client, $row->name_client, $row->phone_nro, $row->email, $row->pwd);
+			    $clients[] = new Client($row->id_client, $row->name_client, $row->phone_nro, $row->email, $row->pwd);
             }
             return $clients;
         }

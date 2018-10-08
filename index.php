@@ -12,25 +12,25 @@ $app = new \Slim\App;
 $app->group('/client', function(){
     $this->get('','ClientController:list');
     $this->post('','ClientController:create');
-    $this->get('/{id:[0-9]+}','ClientController:read');
-    $this->put('/{id:[0-9]+}','ClientController:update');
-    $this->delete('/{id:[0-9]+}','ClientController:delete');
+    $this->get('/{id_client:[0-9]+}','ClientController:read');
+    $this->put('/{id_client:[0-9]+}','ClientController:update');
+    $this->delete('/{id_client:[0-9]+}','ClientController:delete');
 });
 
 $app->group('/product', function(){
     $this->get('','ProductController:list');
     $this->post('','ProductController:create');
-    $this->get('/{id:[0-9]+}','ProductController:read');
-    $this->put('/{id:[0-9]+}','ProductController:update');
-    $this->delete('/{id:[0-9]+}','ProductController:delete');
+    $this->get('/{id_product:[0-9]+}','ProductController:read');
+    $this->put('/{id_product:[0-9]+}','ProductController:update');
+    $this->delete('/{id_product:[0-9]+}','ProductController:delete');
 });
 
 $app->group('/order', function(){
-    $this->get('/all','OrderController:listAll');
+    $this->get('','OrderController:listAll');
     $this->post('','OrderController:create');
-    $this->get('/{id:[0-9]+}','OrderController:read');
-    $this->put('/{id:[0-9]+}','OrderController:update');
-    $this->delete('/{id:[0-9]+}','OrderController:delete');
+    $this->get('/{id_order:[0-9]+}','OrderController:readByOrder');
+    $this->get('/client/{id_client:[0-9]+}','OrderController:readByClient');
+    $this->put('/{id_order:[0-9]+}/{order_status:[1-2]+}','OrderController:updateStatus');
 });
 
 $app->run();

@@ -18,8 +18,7 @@
             $comando->bindParam(":qtd_product",     $product_order->qtd_product);
             $comando->bindParam(":product_amount",  $product_order->product_amount);
             $comando->execute();
-            $product_order->id = $pdo->lastInsertId();
-            return $product_order;
+             return $product_order;
         }
         public function readByOrder($id_order)
         {

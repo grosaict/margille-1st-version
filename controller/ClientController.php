@@ -29,7 +29,7 @@
         }
         public function read($request, $response, $args)
         {
-            $id_client = (int) $args['id'];
+            $id_client = (int) $args['id_client'];
             
             $dao = new ClientDAO;    
             $client = $dao->read($id_client);
@@ -41,7 +41,7 @@
         }
         public function update($request, $response, $args)
         {
-            $id_client = (int) $args['id'];
+            $id_client = (int) $args['id_client'];
             $var = $request->getParsedBody();
             $client = new Client($id_client, $var['name_client'], $var['phone_nro'], $var['email'], $var['pwd']);
         
@@ -51,11 +51,11 @@
             $response = $response->withJson($client);
             $response = $response->withHeader('Content-type', 'application/json');    
             $response = $response->withStatus(202);
-            return $response;        
+            return $response;
         }
         public function delete($request, $response, $args)
         {
-            $id_client = (int) $args['id'];
+            $id_client = (int) $args['id_client'];
             
             $dao = new ClientDAO; 
             $client = $dao->read($id_client);   

@@ -29,7 +29,7 @@
         }
         public function read($request, $response, $args)
         {
-            $id_product = (int) $args['id'];
+            $id_product = (int) $args['id_product'];
             
             $dao = new ProductDAO;    
             $product = $dao->read($id_product);
@@ -41,12 +41,12 @@
         }
         public function update($request, $response, $args)
         {
-            $id_product = (int) $args['id'];
+            $id_product = (int) $args['id_product'];
             $var = $request->getParsedBody();
             $product = new Product($id_product, $var['product_tag'], $var['product_description'], $var['product_price']);
         
             $dao = new ProductDAO;    
-            $dao->update($product);
+            $product = $dao->update($product);
         
             $response = $response->withJson($product);
             $response = $response->withHeader('Content-type', 'application/json');    
@@ -55,7 +55,7 @@
         }
         public function delete($request, $response, $args)
         {
-            $id_product = (int) $args['id'];
+            $id_product = (int) $args['id_product'];
             
             $dao = new ProductDAO; 
             $product = $dao->read($id_product);   

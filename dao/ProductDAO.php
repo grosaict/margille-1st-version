@@ -26,7 +26,7 @@
             $comando->bindParam(":product_description",   $product->product_description);
             $comando->bindParam(":product_price",         $product->product_price);
             $comando->execute();
-            $product->id = $pdo->lastInsertId();
+            $product->id_product = $pdo->lastInsertId();
             return $product;
         }
         public function read($id_product)
