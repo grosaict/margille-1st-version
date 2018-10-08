@@ -18,7 +18,8 @@
         }
         public function create(Client $client)
         {
-            $qInsert = "INSERT INTO tb_client(name_client, phone_nro, email, pwd) VALUES (:name_client, :phone_nro, :email, :pwd)";            
+            $qInsert = "INSERT  INTO tb_client  (name_client, phone_nro, email, pwd)
+                        VALUES                  (:name_client, :phone_nro, :email, :pwd)";            
             $pdo = PDOFactory::getConexao();
             $comando = $pdo->prepare($qInsert);
             $comando->bindParam(":name_client", $client->name_client);
@@ -31,7 +32,8 @@
         }
         public function read($id_client)
         {
- 		    $query = 'SELECT * FROM tb_client WHERE id_client=:id_client';		
+ 		    $query =   'SELECT * FROM tb_client
+                        WHERE id_client=:id_client';		
             $pdo = PDOFactory::getConexao(); 
 		    $comando = $pdo->prepare($query);
 		    $comando->bindParam (":id_client", $id_client);
@@ -41,7 +43,8 @@
         }
         public function delete($id_client)
         {
-            $qDelete = "DELETE FROM tb_client WHERE id_client=:id_client";            
+            $qDelete = "DELETE FROM tb_client
+                        WHERE id_client=:id_client";            
             $pdo = PDOFactory::getConexao();
             $comando = $pdo->prepare($qDelete);
             $comando->bindParam(":id_client", $id_client);
@@ -49,7 +52,9 @@
         }
         public function update(Client $client)
         {
-            $qUpdate = "UPDATE tb_client SET name_client=:name_client, phone_nro=:phone_nro, email=:email, pwd=:pwd WHERE id_client=:id_client";            
+            $qUpdate = "UPDATE tb_client
+                        SET name_client=:name_client, phone_nro=:phone_nro, email=:email, pwd=:pwd
+                        WHERE id_client=:id_client";            
             $pdo = PDOFactory::getConexao();
             $comando = $pdo->prepare($qUpdate);
             $comando->bindParam(":id_client",   $client->id_client);
