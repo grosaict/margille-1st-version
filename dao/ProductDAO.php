@@ -2,7 +2,7 @@
     include_once 'model/Product.php';
 	include_once 'PDOFactory.php';
 
-    class ClientDAO
+    class ProductDAO
     {
         public function list()
         {
@@ -26,7 +26,7 @@
             $comando->bindParam(":product_price",         $product->product_price);
             $comando->execute();
             $client->id = $pdo->lastInsertId();
-            return $product ;
+            return $product;
         }
         public function read($id_product)
         {
