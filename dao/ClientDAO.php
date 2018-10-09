@@ -27,7 +27,7 @@
             $comando->bindParam(":email",       $client->email);
             $comando->bindParam(":pwd",         $client->pwd);
             $comando->execute();
-            $client->id = $pdo->lastInsertId();
+            $client->id_client = $pdo->lastInsertId();
             return $client;
         }
         public function read($id_client)
@@ -38,8 +38,10 @@
 		    $comando = $pdo->prepare($query);
 		    $comando->bindParam (":id_client", $id_client);
 		    $comando->execute();
-		    $result = $comando->fetch(PDO::FETCH_OBJ);
-		    return new client($result->id_client, $result->name_client, $result->phone_nro, $result->email, $result->pwd);           
+            $result = $comando->fetch(PDO::FETCH_OBJ);
+            
+            // ask why not return $result instead? Is it to return as Client object instead of general object!?
+		    return new Client($result->id_client, $result->name_client, $result->phone_nro, $result->email, $result->pwd);           
         }
         public function delete($id_client)
         {

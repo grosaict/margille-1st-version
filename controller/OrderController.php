@@ -46,15 +46,15 @@
                 $productOrder->id_order         = $order->id_order;
                 $productOrder->product_amount   = round(($productOrder->qtd_product * $daoP->readPrice($productOrder->id_product)),2);
 
+                // you must update $order->order_amount to update Order on DB
+                $order->order_amount += $productOrder->product_amount;
+
                 // you must convert $productOrder in ProductOrder obj to use ProductOrderDAO->create
                 $productOrder = new ProductOrder($productOrder->id_order, $productOrder->id_product, $productOrder->qtd_product, $productOrder->product_amount);
                 $daoPO->create($productOrder);
 
                 // you must update array_productOrder to use in OrderView in the future
                 $updated_array_productOrder []  = $productOrder;
-
-                // you must update $order->order_amount to update Order on DB
-                $order->order_amount =+ $productOrder->product_amount;
             }
 
             // updating $order->order_amount on DB

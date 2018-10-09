@@ -1,30 +1,115 @@
+#####    Listing Clients DB    #####
+
+GET localhost:1234/client
 
 
+#####    Creating a new Client    #####
+
+POST localhost:1234/client
+{
+	"name_client": "Cliente ZZ",
+	"phone_nro": 9999999,
+	"email": "mail_ZZ@mail.com",
+	"pwd": "pwd_ZZ"
+}
 
 
-#####    CREATING A NEW ORDER    #####
+#####    Finding a Client    #####
 
-localhost:xxxx/order
+GET localhost:1234/client/1
+
+
+#####    Updanting a Client    #####
+
+PUT localhost:1234/client/1
+{
+    "name_client": "Cliente UPDATED",
+    "phone_nro": 555555555,
+    "email": "mail_UPDATED@mail.com",
+    "pwd": "pwd_UPDATED"
+}
+
+
+#####    Deleting a Client    #####
+
+DELETE localhost:1234/client/1
+
+
+-----------------------------------------------------------
+#####    Listing Products DB    #####
+
+GET localhost:1234/product
+
+
+#####    Creating a new Product    #####
+
+POST localhost:1234/product
+{
+    "product_tag": "Produto XX",
+    "product_description": "detalhe produto XX",
+    "product_price": "555.55"
+}
+
+
+#####    Finding a Product    #####
+
+GET localhost:1234/product/1
+
+
+#####    Updanting a Product    #####
+
+PUT localhost:1234/product/1
+{
+    "product_tag": "Produto UPDATED",
+    "product_description": "detalhe produto UPDATED",
+    "product_price": "555.55"
+}
+
+
+#####    Deleting a Product    #####
+
+DELETE localhost:1234/product/1
+
+
+-----------------------------------------------------------
+#####    Listing Orders DB    #####
+
+GET localhost:1234/order
+
+
+#####    Creating a new Order    #####
+
+POST localhost:1234/order
 {
 	"id_client": 1,
 	"productOrder": [
 	    {
-	        "id_order": 0,
 	        "id_product": 1,
-	        "qtd_product": 1,
-	        "product_amount": 0
+	        "qtd_product": 3
 	    },
 	    {
-	        "id_order": 0,
 	        "id_product": 2,
-	        "qtd_product": 2,
-	        "product_amount": 0
+	        "qtd_product": 2
 	    },
 	    {
-	        "id_order": 0,
 	        "id_product": 3,
-	        "qtd_product": 3,
-	        "product_amount": 0
+	        "qtd_product": 1
 	    }
 	]
 }
+
+
+#####    Finding a Order by id_order    #####
+
+GET localhost:1234/order/1
+
+
+#####    Finding a Order by id_client    #####
+
+GET localhost:1234/order/client/1
+
+
+
+#####    Updanting $order_status of a Product    #####
+
+PUT localhost:1234/order/1/2
