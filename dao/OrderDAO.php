@@ -16,16 +16,13 @@
             }
             return $orders;
         }
-        public function create(Order $order)
+        public function create($id_client)
         {
-            $qInsert = "INSERT INTO tb_order(id_order, id_client, order_status, order_amount)
-                        VALUES              (:id_order, :id_client, :order_status, :order_amount)";            
+            $qInsert = "INSERT INTO tb_order(id_client, order_status, order_amount)
+                        VALUES              (:id_client, 1, 0)";            
             $pdo = PDOFactory::getConexao();
             $comando = $pdo->prepare($qInsert);
-            $comando->bindParam(":id_order",        $order->id_order);
-            $comando->bindParam(":id_client",       $order->id_client);
-            $comando->bindParam(":order_status",    $order->order_status);
-            $comando->bindParam(":order_amount",    $order->order_amount);
+            $comando->bindParam(":id_client", $id_client);
             $comando->execute();
             $order->id_order = $pdo->lastInsertId();
             return $order;
@@ -53,7 +50,7 @@
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
 			    $orders [] = new Order($row->id_order, $row->id_client, $row->order_status, $row->order_amount);
             }
-		    return $orders;           
+		    return $orders; 
         }
         public function updateStatus($id_order, $order_status)
         {

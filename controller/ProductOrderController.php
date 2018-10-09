@@ -1,10 +1,9 @@
 <?php
-
     include_once 'model/ProductOrder.php';
     include_once 'DAO/ProductOrderDAO.php';
 
     class ProductOrderController{
-        public function create(ProductOrder $productOrder)
+        public function create($request, $response, $args)
         {
             $dao = new ProductOrderDAO;
             $productOrder = $dao->create($productOrder);
@@ -14,7 +13,7 @@
             $response = $response->withStatus(201);
             return $response;
         }
-        public function readByOrder($id_order)
+        public function readByOrder($request, $response, $args)
         {
             $dao = new ProductOrderDAO;    
             $array_products_order = $dao->readByOrder($id_order);
