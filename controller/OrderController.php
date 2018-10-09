@@ -1,14 +1,16 @@
 <?php
     include_once 'model/Order.php';
     include_once 'model/OrderView.php';
+    include_once 'model/ProductOrder.php';
     include_once 'DAO/OrderDAO.php';
+    include_once 'DAO/ProductDAO.php';
     include_once 'DAO/ProductOrderDAO.php';
 
     class OrderController{
-        public function listAll($request, $response, $args)
+        public function list($request, $response, $args)
         {
             $dao = new OrderDAO;
-            $array_orders = $dao->listAll();
+            $array_orders = $dao->list();
 
             $orderView = [];
             $dao = new ProductOrderDAO;
@@ -25,13 +27,41 @@
             $response = $response->withStatus(200);
             return $response;
         }
-        public function create($request, $response, $args)
+        public function create($request, $response)
         {
-            $id_client = (int) $args['id_client'];
-            $productOrder = 
+            $var = $request->getParsedBody();
+            $id_client = (int) $var['id_client'];
+            $array_productOrder = (object) $var['productOrder'];
         
-            $dao = new OrderDAO;
-            $orderView = $dao->create($id_client, $productOrder);
+            $daoO = new OrderDAO;
+            $order = $daoO->create($id_client);
+
+            $daoPO = new ProductOrderDAO;
+            $daoP  = new ProductDAO;
+            $updated_array_productOrder = [];
+            foreach ($array_productOrder as $productOrder) {
+
+                // you must convert $productOrder in object to access the parameters
+                $productOrder                   = (object) $productOrder;
+                $productOrder->id_order         = $order->id_order;
+                $productOrder->product_amount   = round(($productOrder->qtd_product * $daoP->readPrice($productOrder->id_product)),2);
+
+                // you must convert $productOrder in ProductOrder obj to use ProductOrderDAO->create
+                $productOrder = new ProductOrder($productOrder->id_order, $productOrder->id_product, $productOrder->qtd_product, $productOrder->product_amount);
+                $daoPO->create($productOrder);
+
+                // you must update array_productOrder to use in OrderView in the future
+                $updated_array_productOrder []  = $productOrder;
+
+                // you must update $order->order_amount to update Order on DB
+                $order->order_amount =+ $productOrder->product_amount;
+            }
+
+            // updating $order->order_amount on DB
+            $order = $daoO->updateAmount($order->id_order, $order->order_amount);
+
+            // creating $orderView for $response
+            $orderView = new OrderView($order, $updated_array_productOrder);
 
             $response = $response->withJson($orderView);
             $response = $response->withHeader('Content-type', 'application/json');    

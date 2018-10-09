@@ -40,6 +40,17 @@
 		    $result = $comando->fetch(PDO::FETCH_OBJ);
 		    return new product($result->id_product, $result->product_tag, $result->product_description, $result->product_price);           
         }
+        public function readPrice($id_product)
+        {
+ 		    $query =   "SELECT * FROM tb_product
+                        WHERE id_product=:id_product";		
+            $pdo = PDOFactory::getConexao(); 
+		    $comando = $pdo->prepare($query);
+		    $comando->bindParam (":id_product", $id_product);
+		    $comando->execute();
+		    $result = $comando->fetch(PDO::FETCH_OBJ);
+		    return $result->product_price;
+        }
         public function delete($id_product)
         {
             $qDelete = "DELETE FROM tb_product
@@ -48,6 +59,7 @@
             $comando = $pdo->prepare($qDelete);
             $comando->bindParam(":id_product", $id_product);
             $comando->execute();
+            return $product;
         }
         public function update(Product $product)
         {
@@ -61,6 +73,7 @@
             $comando->bindParam(":product_description", $product->product_description);
             $comando->bindParam(":product_price",       $product->product_price);
             $comando->execute();
+		    return $product;
         }
     }
 ?>

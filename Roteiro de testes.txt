@@ -1,0 +1,30 @@
+
+
+
+
+#####    CREATING A NEW ORDER    #####
+
+localhost:xxxx/order
+{
+	"id_client": 1,
+	"productOrder": [
+	    {
+	        "id_order": 0,
+	        "id_product": 1,
+	        "qtd_product": 1,
+	        "product_amount": 0
+	    },
+	    {
+	        "id_order": 0,
+	        "id_product": 2,
+	        "qtd_product": 2,
+	        "product_amount": 0
+	    },
+	    {
+	        "id_order": 0,
+	        "id_product": 3,
+	        "qtd_product": 3,
+	        "product_amount": 0
+	    }
+	]
+}

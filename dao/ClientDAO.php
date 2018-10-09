@@ -63,6 +63,7 @@
             $comando->bindParam(":email",       $client->email);
             $comando->bindParam(":pwd",         $client->pwd);
             $comando->execute();
+            return $client;
         }
     }
 ?>

@@ -15,6 +15,8 @@
         }
         public function readByOrder($request, $response, $args)
         {
+            $id_order = (int) $args['id_order'];
+            
             $dao = new ProductOrderDAO;    
             $array_products_order = $dao->readByOrder($id_order);
                 

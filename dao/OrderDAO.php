@@ -4,7 +4,7 @@
 
     class OrderDAO
     {
-        public function listAll()
+        public function list()
         {
 		    $query = 'SELECT * FROM tb_order';
     		$pdo = PDOFactory::getConexao();
@@ -24,8 +24,8 @@
             $comando = $pdo->prepare($qInsert);
             $comando->bindParam(":id_client", $id_client);
             $comando->execute();
-            $order->id_order = $pdo->lastInsertId();
-            return $order;
+            $id_order = $pdo->lastInsertId();
+            return OrderDAO::readByOrder($id_order);
         }
         public function readByOrder($id_order)
         {
@@ -61,6 +61,18 @@
             $comando = $pdo->prepare($qUpdate);
             $comando->bindParam(":id_order",        $id_order);
             $comando->bindParam(":order_status",    $order_status);
+            $comando->execute();
+            return OrderDAO::readByOrder($id_order);
+        }
+        public function updateAmount($id_order, $order_amount)
+        {
+            $qUpdate = "UPDATE tb_order
+                        SET order_amount=:order_amount
+                        WHERE id_order=:id_order";          
+            $pdo = PDOFactory::getConexao();
+            $comando = $pdo->prepare($qUpdate);
+            $comando->bindParam(":id_order",        $id_order);
+            $comando->bindParam(":order_amount",    $order_amount);
             $comando->execute();
             return OrderDAO::readByOrder($id_order);
         }

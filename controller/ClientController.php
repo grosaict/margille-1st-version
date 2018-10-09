@@ -4,7 +4,7 @@
     include_once 'DAO/ClientDAO.php';
 
     class ClientController{
-        public function list($request, $response, $args)
+        public function list($request, $response)
         {
             $dao = new ClientDAO;    
             $array_clients = $dao->list();
