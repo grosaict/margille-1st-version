@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS tb_product (
   id_product int NOT NULL AUTO_INCREMENT,
   product_tag varchar(30) NOT NULL,
   product_description varchar(100),
-  product_price decimal(7,2) NOT NULL, 
+  product_price decimal(7,2) NOT NULL,
   PRIMARY KEY (id_product)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 

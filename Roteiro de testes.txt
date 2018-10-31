@@ -106,8 +106,7 @@ GET localhost:1234/order/1
 
 #####    Finding a Order by id_client    #####
 
-GET localhost:1234/order/client/1
-
+GET localhost:1234/client/order/1
 
 
 #####    Updanting $order_status of a Product    #####

@@ -82,6 +82,7 @@
 
             // make ORDERVIEW (ORDER + PRODUCTS_ORDER)
             $orderView = new OrderView($order, $array_products_order);
+            //$orderView = (object) array_merge((array) $array_products_order, (array) $order);
 
             $response = $response->withJson($orderView);
             $response = $response->withHeader('Content-type', 'application/json');    

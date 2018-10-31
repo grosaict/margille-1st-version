@@ -13,6 +13,7 @@ $app->group('/client', function(){
     $this->get('','ClientController:list');
     $this->post('','ClientController:create');
     $this->get('/{id_client:[0-99]+}','ClientController:read');
+    $this->get('/order/{id_client:[0-99]+}','OrderController:readByClient');
     $this->put('/{id_client:[0-99]+}','ClientController:update');
     $this->delete('/{id_client:[0-99]+}','ClientController:delete');
 });
@@ -29,7 +30,6 @@ $app->group('/order', function(){
     $this->get('','OrderController:list');
     $this->post('','OrderController:create');
     $this->get('/{id_order:[0-99]+}','OrderController:readByOrder');
-    $this->get('/client/{id_client:[0-99]+}','OrderController:readByClient');
     $this->put('/{id_order:[0-99]+}/{order_status:[1-2]+}','OrderController:updateStatus');
 });
 

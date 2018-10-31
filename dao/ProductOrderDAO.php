@@ -22,15 +22,16 @@
         }
         public function readByOrder($id_order)
         {
- 		    $query =   "SELECT * FROM tb_product_order
-                        WHERE id_order=:id_order";
+ 		    $query =   "SELECT  id_order, tb_product_order.id_product, tb_product.product_tag, tb_product.product_description, qtd_product, product_amount
+                        FROM    tb_product, tb_product_order
+                        WHERE   id_order=:id_order AND tb_product.id_product = tb_product_order.id_product";
             $pdo = PDOFactory::getConexao(); 
 		    $comando = $pdo->prepare($query);
 		    $comando->bindParam(":id_order", $id_order);
             $comando->execute();
             $array_products_order = [];
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
-			    $array_products_order[] = new ProductOrder($row->id_order, $row->id_product, $row->qtd_product, $row->product_amount);
+			    $array_products_order[] = new ProductOrder($row->id_order, $row->id_product, $row->product_tag, $row->product_description, $row->qtd_product, $row->product_amount);
             }
 		    return $array_products_order;           
         }
