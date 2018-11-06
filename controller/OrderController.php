@@ -2,6 +2,7 @@
     include_once 'model/Order.php';
     include_once 'model/OrderView.php';
     include_once 'model/ProductOrder.php';
+    include_once 'DAO/ClientDAO.php';
     include_once 'DAO/OrderDAO.php';
     include_once 'DAO/ProductDAO.php';
     include_once 'DAO/ProductOrderDAO.php';
@@ -33,8 +34,13 @@
             $id_client = (int) $var['id_client'];
             $array_productOrder = (object) $var['productOrder'];
         
+            // Verify and return a exiting client
+            $daoC = new ClientDAO;
+            $client = $daoC->read($id_client);
+
+            // Creat an order using a object Client
             $daoO = new OrderDAO;
-            $order = $daoO->create($id_client);
+            $order = $daoO->create($client);
 
             $daoPO = new ProductOrderDAO;
             $daoP  = new ProductDAO;
@@ -50,7 +56,7 @@
                 $order->order_amount += $productOrder->product_amount;
 
                 // you must convert $productOrder in ProductOrder obj to use ProductOrderDAO->create
-                $productOrder = new ProductOrder($productOrder->id_order, $productOrder->id_product, $productOrder->qtd_product, $productOrder->product_amount);
+                $productOrder = new ProductOrder($productOrder->id_order, $productOrder->id_product, "", "", $productOrder->qtd_product, $productOrder->product_amount);
                 $daoPO->create($productOrder);
 
                 // you must update array_productOrder to use in OrderView in the future
@@ -82,7 +88,8 @@
 
             // make ORDERVIEW (ORDER + PRODUCTS_ORDER)
             $orderView = new OrderView($order, $array_products_order);
-            //$orderView = (object) array_merge((array) $array_products_order, (array) $order);
+            /*  DON'T USE THIS SINTAX
+                $orderView = array_merge((array) $array_products_order, (array) $order); */
 
             $response = $response->withJson($orderView);
             $response = $response->withHeader('Content-type', 'application/json');    

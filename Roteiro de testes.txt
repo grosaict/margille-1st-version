@@ -81,7 +81,7 @@ GET localhost:1234/order
 
 POST localhost:1234/order
 {
-	"id_client": 1,
+	"id_client": 3,
 	"productOrder": [
 	    {
 	        "id_product": 1,

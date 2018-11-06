@@ -1,6 +1,7 @@
 <?php
     include_once 'model/Order.php';
-	include_once 'PDOFactory.php';
+    include_once 'PDOFactory.php';
+    include_once 'DAO/ClientDAO.php';
 
     class OrderDAO
     {
@@ -18,8 +19,9 @@
             }
             return $orders;
         }
-        public function create($id_client)
+        public function create($client)
         {
+            $id_client = $client->id_client;
             $qInsert = "INSERT INTO tb_order(id_client, order_status, order_amount)
                         VALUES              (:id_client, 1, 0)";            
             $pdo = PDOFactory::getConexao();
@@ -31,15 +33,17 @@
         }
         public function readByOrder($id_order)
         {
- 		    $query =   "SELECT  id_order, tb_order.id_client, name_client, order_status, order_amount
-                        FROM    tb_order, tb_client
-                        WHERE   id_order=:id_order AND tb_order.id_client = tb_client.id_client";		
+ 		    $query =   "SELECT  id_order, id_client, order_status, order_amount
+                        FROM    tb_order
+                        WHERE   id_order=:id_order";		
             $pdo = PDOFactory::getConexao(); 
 		    $comando = $pdo->prepare($query);
 		    $comando->bindParam (":id_order", $id_order);
 		    $comando->execute();
-		    $result = $comando->fetch(PDO::FETCH_OBJ);
-		    return new Order($result->id_order, $result->id_client, $result->name_client, $result->order_status, $result->order_amount);           
+            $result = $comando->fetch(PDO::FETCH_OBJ);
+            $dao = new ClientDAO;
+            $client = $dao->read($result->id_client);
+		    return new Order($result->id_order, $client, $result->order_status, $result->order_amount);           
         }
         public function readByClient($id_client)
         {
