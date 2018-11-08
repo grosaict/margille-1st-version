@@ -2,6 +2,7 @@
     include_once 'model/Order.php';
     include_once 'PDOFactory.php';
     include_once 'DAO/ClientDAO.php';
+    include_once 'DAO/ProductOrderDAO.php';
 
     class OrderDAO
     {
@@ -13,18 +14,19 @@
 	    	$comando = $pdo->prepare($query);
     		$comando->execute();
             $orders = [];
-            // creating Client object
-            $dao = new ClientDAO;
+            // creating Client and ProductOrder objects
+            $dao_client         = new ClientDAO;
+            $dao_product_order  = new ProductOrderDAO;
             
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
-                $client = $dao->read($row->id_client);
-			    $orders [] = new Order($row->id_order, $client, $row->order_status, $row->order_amount);
+                $client         = $dao_client->read($row->id_client);
+                $product_order  = $dao_product_order->readByOrder($row->id_order);
+			    $orders []      = new Order($row->id_order, $row->order_status, $row->order_amount, $client, $product_order);
             }
             return $orders;
         }
-        public function create($client)
+        public function create($id_client)
         {
-            $id_client = $client->id_client;
             $qInsert = "INSERT INTO tb_order(id_client, order_status, order_amount)
                         VALUES              (:id_client, 1, 0)";            
             $pdo = PDOFactory::getConexao();
@@ -45,19 +47,17 @@
 		    $comando->execute();
             $result = $comando->fetch(PDO::FETCH_OBJ);
 
-            // creating Client object
-            $dao = new ClientDAO;
-            $client = $dao->read($result->id_client);
+            // creating Client and ProductOrder objects
+            $dao_client         = new ClientDAO;
+            $client             = $dao_client->read($result->id_client);
+            $dao_product_order  = new ProductOrderDAO;
+            $product_order      = $dao_product_order->readByOrder($result->id_order);
 
-            // creating and returning Order object
-		    return new Order($result->id_order, $client, $result->order_status, $result->order_amount);           
+            // creating and returning an Order object
+		    return new Order($result->id_order, $result->order_status, $result->order_amount, $client, $product_order);
         }
         public function readByClient($id_client)
         {
-            // creating Client object
-            $dao = new ClientDAO;
-            $client = $dao->read($id_client);
-
  		    $query =   'SELECT  id_order, id_client, order_status, order_amount
                         FROM    tb_order
                         WHERE   id_client = :id_client';		
@@ -65,9 +65,16 @@
 		    $comando = $pdo->prepare($query);
 		    $comando->bindParam (":id_client", $id_client);
 		    $comando->execute();
+
+            // creating Client and ProductOrder objects
+            $dao_client         = new ClientDAO;
+            $client             = $dao_client->read($id_client);
+            $dao_product_order  = new ProductOrderDAO;
+
             $orders = [];
 		    while($row = $comando->fetch(PDO::FETCH_OBJ)){
-			    $orders [] = new Order($row->id_order, $client, $row->order_status, $row->order_amount);
+                $product_order  = $dao_product_order->readByOrder($row->id_order);
+			    $orders []      = new Order($row->id_order, $row->order_status, $row->order_amount, $client, $product_order);
             }
 		    return $orders;
         }
