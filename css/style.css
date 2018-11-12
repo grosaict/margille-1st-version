@@ -1,0 +1,32 @@
+body {
+    width: 80vw;
+    margin: auto 10vw;
+}
+
+h2 {
+    float:      left;
+    width:      calc(100% / 3);
+    text-align: center;
+    color:      darkorange;
+}
+
+h2:hover {
+    color:              white;
+    background-color:   orange;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 0.1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: orange;
+}
