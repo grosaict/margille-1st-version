@@ -3,16 +3,37 @@ body {
     margin: auto 10vw;
 }
 
+.options, #form {
+    float:              left;
+    box-sizing:         content-box;
+    width:              50%;
+    height:             15vh;
+}
+
+.options {
+    text-align:         center;
+    font-size:          4em;
+    color:              darkorange;
+    background-color:   lightgrey;
+}
+
+.options:hover {
+    color:              lightgrey;
+    background-color:   darkorange;
+}
+
+#form {
+    background-color:   orange;
+}
+
+label {
+    float: none;
+}
+
 h2 {
-    float:      left;
     width:      calc(100% / 3);
     text-align: center;
     color:      darkorange;
-}
-
-h2:hover {
-    color:              white;
-    background-color:   orange;
 }
 
 table {
