@@ -11,15 +11,16 @@
     <body>
         <h1>Margille - A arte de fazer pizzas</h1>
         <main>
-            <div class="options"    onclick="loadClients()">    Clientes</div>
-            <div class="options"    onclick="loadProducts()">   Produtos</div>
-            <div class="options"    onclick="loadOrders()">     Pedidos</div>
-            <div id="form">
-
-            </div>
+            <div class="options loadClients">    Clientes</div>
+            <div class="options loadProducts">   Produtos</div>
+            <div class="options loadOrders">     Pedidos</div>
+            <div id="form"></div>
             <div id="contentbox"></div>
         </main>
     </body>
+    <script src="js/model/client.js"></script>
+    <script src="js/service/margilleHttpService.js"></script>
+    <script src="js/controller/margilleController.js"></script>
     <script src="js/margille.js"></script>
 </body>
 
