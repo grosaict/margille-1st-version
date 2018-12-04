@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS tb_client (
 -- Inserção dados de teste na tabela de cliente
 
 INSERT INTO tb_client(name_client, phone_nro, email, pwd)
-		VALUES	('Cliente 01', 51111222333, 'mail_01@mail.com', 'pwd_01'),
-        		('Cliente 02', 51444555666, 'mail_02@mail.com', 'pwd_02'),
-            ('Cliente 03', 51777888999, 'mail_03@mail.com', 'pwd_03');
+		VALUES	('Cliente 01', 51999111111, 'mail_01@mail.com', 'pwd_01'),
+        		('Cliente 02', 51999222222, 'mail_02@mail.com', 'pwd_02'),
+            ('Cliente 03', 51999333333, 'mail_03@mail.com', 'pwd_03');
 
 
 

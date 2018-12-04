@@ -9,17 +9,21 @@
     </head>
     
     <body>
-        <h1>Margille - A arte de fazer pizzas</h1>
+        <h1 id="home">Margille - A arte de fazer pizzas</h1>
         <main>
-            <div class="options loadClients">    Clientes</div>
-            <div class="options loadProducts">   Produtos</div>
-            <div class="options loadOrders">     Pedidos</div>
-            <div id="form"></div>
+            <section class="options">
+                <div class="option loadClients">    Clientes</div>
+                <div class="option loadProducts">   Produtos</div>
+                <div class="option loadOrders">     Pedidos</div>
+            </section>
             <div id="contentbox"></div>
         </main>
     </body>
-    <script src="js/model/client.js"></script>
     <script src="js/service/margilleHttpService.js"></script>
+    <script src="js/model/client.js"></script>
+    <script src="js/view/clientView.js"></script>
+    <script src="js/view/productView.js"></script>
+    <script src="js/view/orderView.js"></script>
     <script src="js/controller/margilleController.js"></script>
     <script src="js/margille.js"></script>
 </body>

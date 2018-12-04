@@ -19,6 +19,21 @@ class MargilleHttpService{
         xhttp.send();
     }
 
+    insertClient(client, ok, error) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 201) {
+                ok();
+            }
+            else if(this.status !== 201){
+                error(this.status);
+            }
+        };
+        xhttp.open("POST", this.uriClient, true);
+        xhttp.setRequestHeader("Content-Type","application/json");
+        xhttp.send(JSON.stringify(client));
+    }
+
     loadProducts(ok, error) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
@@ -46,22 +61,4 @@ class MargilleHttpService{
         xhttp.open("GET", this.uriOrder, true);
         xhttp.send();
     }
-
-    /*enviarMotor(motor,ok,error){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 201) {
-                //console.log("Response recebido!");
-                //self.limparFormulario();
-                //self.carregarMotores();
-                ok();
-            }
-            else if(this.status !== 201){
-                error(this.status);
-            }
-        };
-        xhttp.open("POST", this.uri, true);
-        xhttp.setRequestHeader("Content-Type","application/json");
-        xhttp.send(JSON.stringify(motor));
-    }*/    
 }

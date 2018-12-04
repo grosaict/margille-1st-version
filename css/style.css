@@ -1,36 +1,45 @@
 body {
-    width: 80vw;
-    margin: auto 10vw;
-}
-
-.options, #form {
-    float:              left;
-    box-sizing:         content-box;
-    width:              50%;
-    height:             15vh;
+    width:      80vw;
+    margin:     auto 10vw;
+    box-sizing: content-box;
 }
 
 .options {
-    text-align:         center;
-    font-size:          4em;
-    color:              darkorange;
-    background-color:   lightgrey;
+    float:              left;
+    width:              100%;
 }
 
-.options:hover {
-    color:              lightgrey;
+.option, #form, .insertButton {
+    float:              left;
+    text-align:         center;
+}
+
+.option, .insertButton {
+    width:              20%;
+    height:             auto;
+    margin:             auto calc(40% / 6);
+    font-size:          2em;
+    border-radius:      10px;
+    color:              white;
     background-color:   darkorange;
+}
+
+.insertButton {
+    font-size:          1.3em;
+    margin:             20px calc(40% / 6);
+    background-color:   red;
+}
+
+.option:hover, .insertButton:hover {
+    background-color:   saddlebrown;
 }
 
 #form {
     background-color:   orange;
 }
 
-label {
-    float: none;
-}
-
 h2 {
+    float:      left;
     width:      calc(100% / 3);
     text-align: center;
     color:      darkorange;
