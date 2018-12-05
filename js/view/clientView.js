@@ -1,11 +1,12 @@
 class ClientView {
-    constructor(tableSelector) {
-        this.table = tableSelector;
+    constructor(tableSelector, controller) {
+        this.table  = tableSelector;
+        this.cont   = controller;
     }
 
-    createClientsArea (clients, func) {
+    createClientsArea (clients) {
         document.querySelector(this.table).innerHTML = this.areaTemplate(clients);
-        document.querySelector(".insertButton").addEventListener("click", func);
+        document.querySelector(".insertButton").addEventListener("click", this.clientForm.bind(this));
     }
 
     areaTemplate (jsonObject){
@@ -31,5 +32,35 @@ class ClientView {
                             `).join('')}
                     </tbody>
                 </table>`;
+    }
+
+    clientForm (){
+        document.querySelector("#contentbox").innerHTML =
+            `<h2>Cadastrar Cliente</h2>
+            <form class="my_form">
+                <div class="input_form">
+                    <label for="name_client">Nome</label>
+                    <input type="text" name="name_client" id="name_client" class="data_form">
+                </div>
+                <div class="input_form">
+                    <label for="phone_nro">Celular</label>
+                    <input type="number" name="phone_nro" id="phone_nro" class="data_form">
+                </div>
+                <div class="input_form">
+                    <label for="email">e-mail</label>
+                    <input type="email" name="email" id="email" class="data_form">
+                </div>
+                <div class="input_form">
+                    <label for="pwd">Senha</label>
+                    <input type="password" name="pwd" id="pwd" class="data_form">
+                </div>
+                <input type="submit" name="cadastrar" value="Cadastrar" id="my_submit">
+                <input type="reset" name="limpar" value="Limpar">
+            </form>`;
+        console.log(">>> A <<<");
+        console.log(this);
+        console.log(this.cont);
+        document.querySelector(".my_form").addEventListener("submit", this.cont.prepareClient.bind(this.cont));
+        console.log(">>> B <<<");
     }
 }

@@ -1,4 +1,4 @@
-body {
+head, body {
     width:              80vw;
     margin:             auto 10vw;
     box-sizing:         content-box;
@@ -14,7 +14,7 @@ a {
     width:              100%;
 }
 
-.option, #form, .insertButton {
+h2, .option, .insertButton, .my_form, .input_form, label {
     float:              left;
     text-align:         center;
 }
@@ -40,9 +40,7 @@ a {
 }
 
 h2 {
-    float:              left;
     width:              calc(100% / 3);
-    text-align:         center;
     color:              darkorange;
 }
 
@@ -62,14 +60,24 @@ tr:nth-child(even) {
     background-color:   orange;
 }
 
-.form {
-    float:              left;
+.my_form {
     margin:             10px;
     padding:            5px;
     background-color:   orange;
 }
 
 .input_form {
-    float:              left;
     width:              40vh;
+}
+
+label {
+    width:              20vh;
+    font-size:          1.3em;
+    color:              white;
+}
+
+input {
+    border-radius:      10px;
+    background-color: white;
+    margin:             5px auto;
 }
