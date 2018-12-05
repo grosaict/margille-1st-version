@@ -37,33 +37,39 @@ class MargilleController {
 
     clientForm (){
         document.querySelector("#contentbox").innerHTML =
-            `<form class="form">
-                <legend>Cadastrar Cliente</legend>
-                <label for="name_client">Nome</label>
-                <input type="text" name="name_client" id="name_client" class="data_form">
-                <label for="phone_nro">Mobile</label>
-                <input type="number" name="phone_nro" id="phone_nro" class="data_form">
-                <br/>
-                <label for="email">e-mail</label>
-                <input type="email" name="email" id="email" class="data_form">
-                <label for="pwd">Senha</label>
-                <input type="password" name="pwd" id="pwd" class="data_form">
-                <br/>
+            `<h2>Cadastrar Cliente</h2>
+            <form class="form">
+                <div class="input_form">
+                    <label for="name_client">Nome</label>
+                    <input type="text" name="name_client" id="name_client" class="data_form">
+                </div>
+                <div class="input_form">
+                    <label for="phone_nro">Mobile</label>
+                    <input type="number" name="phone_nro" id="phone_nro" class="data_form">
+                </div>
+                <div class="input_form">
+                    <label for="email">e-mail</label>
+                    <input type="email" name="email" id="email" class="data_form">
+                </div>
+                <div class="input_form">
+                    <label for="pwd">Senha</label>
+                    <input type="password" name="pwd" id="pwd" class="data_form">
+                </div>
                 <input type="submit" name="cadastrar" value="Cadastrar">
                 <input type="reset" name="limpar" value="Limpar">
             </form>`;
         console.log("AAAAAAAAA");
-        document.querySelector(".form").addEventListener("submit", this.prepareClient, false);
+        document.querySelector(".form").addEventListener("submit", this.prepareClient.bind(this), false);
         console.log("BBBBBBBBB");
     }
 
     prepareClient(event) {
         event.preventDefault();
-        var client          = new Client(document.querySelector("#name_client").value, document.querySelector("#phone_nro").value, document.querySelector("#email").value, document.querySelector("#pwd").value);
-        /*client.name_client  = document.querySelector("#name_client").value;
+        var client          = {};
+        client.name_client  = document.querySelector("#name_client").value;
         client.phone_nro    = document.querySelector("#phone_nro").value;
         client.email        = document.querySelector("#email").value;
-        client.pwd          = document.querySelector("#pwd").value;*/
+        client.pwd          = document.querySelector("#pwd").value;
         console.log(client);
         console.log("SSSSSSSSSSSS");
         const ok = function(){
