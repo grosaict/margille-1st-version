@@ -5,28 +5,47 @@ class MargilleHttpService{
         this.uriOrder   = "http://localhost:1234/order";
     }
 
-    loadClients(ok, error) {
+    loadClients(ok, state) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 ok(JSON.parse(this.responseText));
             }
             else if (this.status !== 200){
-                error(this.status);
+                state(this.status);
             }
         };
         xhttp.open("GET", this.uriClient, true);
         xhttp.send();
     }
 
-    insertClient(client, ok, error) {
+    loadClient(ok, state, id_client) {
+        var newUri = this.uriClient + "/" + id_client;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                try {
+                    ok(JSON.parse(this.responseText));
+                } catch (e) {
+                    ok(null);
+                }
+            }
+            else if (this.status !== 200){
+                state(this.status);
+            }
+        };
+        xhttp.open("GET", newUri, true);
+        xhttp.send();
+    }
+
+    insertClient(ok, state, client) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 201) {
                 ok();
             }
             else if(this.status !== 201){
-                error(this.status);
+                state(this.status);
             }
         };
         xhttp.open("POST", this.uriClient, true);
@@ -34,28 +53,59 @@ class MargilleHttpService{
         xhttp.send(JSON.stringify(client));
     }
 
-    loadProducts(ok, error) {
+    editClient(ok, state, client) {
+        var newUri = this.uriClient + "/" + client.id_client;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 202) {
+                ok();
+            }
+            else if(this.status !== 202){
+                state(this.status);
+            }
+        };
+        xhttp.open("PUT", newUri, true);
+        xhttp.setRequestHeader("Content-Type","application/json");
+        xhttp.send(JSON.stringify(client));
+    }
+
+    deleteClient(ok, state, id_client) {
+        var newUri = this.uriClient + "/" + id_client;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 202) {
+                ok();
+            }
+            else if(this.status !== 202){
+                state(this.status);
+            }
+        };
+        xhttp.open("DELETE", newUri, true);
+        xhttp.send();
+    }
+
+    loadProducts(ok, state) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 ok(JSON.parse(this.responseText));
             }
             else if (this.status !== 200){
-                error(this.status);
+                state(this.status);
             }
         };
         xhttp.open("GET", this.uriProduct, true);
         xhttp.send();
     }
 
-    loadOrders(ok, error) {
+    loadOrders(ok, state) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 ok(JSON.parse(this.responseText));
             }
             else if (this.status !== 200){
-                error(this.status);
+                state(this.status);
             }
         };
         xhttp.open("GET", this.uriOrder, true);

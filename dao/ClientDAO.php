@@ -41,7 +41,7 @@
             $result = $comando->fetch(PDO::FETCH_OBJ);
             
             // ask why not return $result instead? Is it to return as Client object instead of general object!?
-		    return new Client($result->id_client, $result->name_client, $result->phone_nro, $result->email, $result->pwd);           
+		    return new Client($result->id_client, $result->name_client, $result->phone_nro, $result->email, $result->pwd);          
         }
         public function delete($id_client)
         {

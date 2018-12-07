@@ -1,7 +1,12 @@
+* {
+    box-sizing:         content-box;
+    margin:             0px;
+    padding:            0px;
+}
+
 head, body {
     width:              80vw;
-    margin:             auto 10vw;
-    box-sizing:         content-box;
+    margin:             2vh 10vw;
 }
 
 a {
@@ -11,15 +16,22 @@ a {
 
 .options {
     float:              left;
+    margin:             5vh auto;
     width:              100%;
 }
 
-h2, .option, .insertButton, .my_form, .input_form, label {
+#contentbox h1 {
+    top:            50px;
+    text-align:     center;
+    color:          red;
+}
+
+h2, .option, .crudButton, .my_form, .input_form, label {
     float:              left;
     text-align:         center;
 }
 
-.option, .insertButton {
+.option, .crudButton {
     width:              20%;
     height:             auto;
     margin:             auto calc(40% / 6);
@@ -29,13 +41,14 @@ h2, .option, .insertButton, .my_form, .input_form, label {
     background-color:   darkorange;
 }
 
-.insertButton {
-    font-size:          1.3em;
-    margin:             20px calc(40% / 6);
+.crudButton {
+    font-size:          1em;
+    width:              15%;
+    margin:             auto calc(40% / 12);
     background-color:   red;
 }
 
-.option:hover, .insertButton:hover {
+.option:hover, .crudButton:hover {
     background-color:   saddlebrown;
 }
 
