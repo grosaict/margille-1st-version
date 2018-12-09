@@ -39,14 +39,14 @@ class ClientView {
         document.querySelector(this.mainArea).innerHTML = this.areaTemplate(clients);
         document.querySelector(".insertButton").addEventListener("click", this.insertClientForm.bind(this));
         document.querySelector(".editButton").addEventListener("click", this.editClientForm.bind(this));
-        document.querySelector(".excluirButton").addEventListener("click", this.deleteClientForm.bind(this));
+        document.querySelector(".deleteButton").addEventListener("click", this.deleteClientForm.bind(this));
     }
 
     areaTemplate (jsonObject){
         return `<h2>Lista de Clientes</h2>
                 <div class="crudButton insertButton">Novo Cliente</div>
                 <div class="crudButton editButton">Editar Cliente</div>
-                <div class="crudButton excluirButton">Excluir Cliente</div>
+                <div class="crudButton deleteButton">Excluir Cliente</div>
                 <table>
                     <thead>
                         <tr>

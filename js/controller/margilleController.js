@@ -130,8 +130,8 @@ class MargilleController {
         const self      = this;
         const ok        = function (order) {
             if (order != null) {
-                document.querySelector("#my_submit").style.display      = "block";
-                document.querySelector("#orderSummary").innerHTML       = self.orderView.orderView(order);
+                document.querySelector(".form1").style.display     = "block";
+                document.querySelector("#orderSummary").innerHTML   = self.orderView.orderView(order);
                 return order;
             } else {
                 self.updateContentbox("<h1>Pedido não Encontrado</h1>");
@@ -139,30 +139,60 @@ class MargilleController {
         }
         document.querySelector(".data_form2").disabled = "true";
         var id_order   = document.querySelector("#id_order").value;
-        console.log(id_order);
         this.service.loadOrder(ok, this.state, id_order);
     }
 
-    // prepareInsertProduct(event) {
-    //     event.preventDefault();
-    //     var product                 = new Product();
-    //     product.product_tag         = document.querySelector("#product_tag").value;
-    //     product.product_description = document.querySelector("#product_description").value;
-    //     product.product_price       = document.querySelector("#product_price").value;
-    //     const ok                    = ()  => this.updateContentbox("<h1>Registro Incluído com Sucesso</h1>");
-    //     this.service.insertProduct(ok, this.state, product);
-    // }
+    prepareInsertOrder(event) {
+        event.preventDefault();
+        var order           = new Order();
+        var pOrder          = new ProductOrder();
+        order.id_client     = document.querySelector("#id_client").value;
+        order.productOrder  = [];
+        pOrder.id_product   = document.querySelector("#id_product1").value;
+        pOrder.qtd_product  = document.querySelector("#qtd_product1").value;
+        order.productOrder.push(pOrder);
+        if (document.querySelector("#id_product2").value != "" && document.querySelector("#qtd_product2").value != "") {
+            var pOrder          = new ProductOrder();
+            pOrder.id_product   = document.querySelector("#id_product2").value;
+            pOrder.qtd_product  = document.querySelector("#qtd_product2").value;
+            order.productOrder.push(pOrder);
+        }
+        if (document.querySelector("#id_product3").value != "" && document.querySelector("#qtd_product3").value != "") {
+            var pOrder          = new ProductOrder();
+            pOrder.id_product   = document.querySelector("#id_product3").value;
+            pOrder.qtd_product  = document.querySelector("#qtd_product3").value;
+            order.productOrder.push(pOrder);
+        }
+        const ok            = ()  => this.updateContentbox("<h1>Registro Incluído com Sucesso</h1>");
+        this.service.insertOrder(ok, this.state, order);
+    }
 
-    // prepareEditProduct(event) {
-    //     event.preventDefault();
-    //     var product                 = new Product();
-    //     product.id_product          = document.querySelector("#id_product").value;
-    //     product.product_tag         = document.querySelector("#product_tag").value;
-    //     product.product_description = document.querySelector("#product_description").value;
-    //     product.product_price       = document.querySelector("#product_price").value;
-    //     const ok                    = () => this.updateContentbox("<h1>Registro Alterado com Sucesso</h1>");
-    //     this.service.editProduct(ok, this.state, product);
-    // }
+    prepareEditOrder(event) {
+        event.preventDefault();
+        var order           = new Order();
+        var pOrder          = new ProductOrder();
+        order.id_order      = document.querySelector("#id_order").value;
+        order.id_client     = document.querySelector("#id_client").value;
+        order.productOrder  = [];
+        pOrder.id_product   = document.querySelector("#id_product1").value;
+        pOrder.qtd_product  = document.querySelector("#qtd_product1").value;
+        order.productOrder.push(pOrder);
+        if (document.querySelector("#id_product2").value != "" && document.querySelector("#qtd_product2").value != "") {
+            var pOrder          = new ProductOrder();
+            pOrder.id_product   = document.querySelector("#id_product2").value;
+            pOrder.qtd_product  = document.querySelector("#qtd_product2").value;
+            order.productOrder.push(pOrder);
+        }
+        if (document.querySelector("#id_product3").value != "" && document.querySelector("#qtd_product3").value != "") {
+            var pOrder          = new ProductOrder();
+            pOrder.id_product   = document.querySelector("#id_product3").value;
+            pOrder.qtd_product  = document.querySelector("#qtd_product3").value;
+            order.productOrder.push(pOrder);
+        }
+        const ok                    = () => this.updateContentbox("<h1>Registro Alterado com Sucesso</h1>");
+        console.log(order);
+        this.service.editOrder(ok, this.state, order);
+    }
 
     prepareDeleteOrder(event) {
         event.preventDefault();

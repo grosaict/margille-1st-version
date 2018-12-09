@@ -98,7 +98,6 @@ POST localhost:1234/order
 	]
 }
 
-
 #####    Finding a Order by id_order    #####
 
 GET localhost:1234/order/1

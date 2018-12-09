@@ -35,14 +35,14 @@ class ProductView {
         document.querySelector(this.mainArea).innerHTML = this.areaTemplate(products);
         document.querySelector(".insertButton").addEventListener("click", this.insertProductForm.bind(this));
         document.querySelector(".editButton").addEventListener("click", this.editProductForm.bind(this));
-        document.querySelector(".excluirButton").addEventListener("click", this.deleteProductForm.bind(this));
+        document.querySelector(".deleteButton").addEventListener("click", this.deleteProductForm.bind(this));
     }
 
     areaTemplate (jsonObject){
         return `<h2>Lista de Produtos</h2>
                 <div class="crudButton insertButton">Novo Produto</div>
                 <div class="crudButton editButton">Editar Produto</div>
-                <div class="crudButton excluirButton">Excluir Produto</div>
+                <div class="crudButton deleteButton">Excluir Produto</div>
                 <table>
                     <thead>
                         <tr>

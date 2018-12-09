@@ -16,7 +16,7 @@
             $comando->bindParam(":qtd_product",     $product_order->qtd_product);
             $comando->bindParam(":product_amount",  $product_order->product_amount);
             $comando->execute();
-             return $product_order;
+            return $product_order;
         }
         public function readByOrder($id_order)
         {
@@ -37,6 +37,15 @@
 			    $array_products_order[] = new ProductOrder($product, $row->qtd_product, $row->product_amount);
             }
 		    return $array_products_order;           
+        }
+        public function delete($id_order)
+        {
+            $qDelete = "DELETE FROM tb_product_order
+                        WHERE id_order=:id_order";            
+            $pdo = PDOFactory::getConexao();
+            $comando = $pdo->prepare($qDelete);
+            $comando->bindParam(":id_order", $id_order);
+            $comando->execute();
         }
     }
 ?>

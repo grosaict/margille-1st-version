@@ -79,6 +79,18 @@
             }
 		    return $orders;
         }
+        public function updateClient($id_order, $id_client)
+        {
+            $qUpdate = "UPDATE  tb_order
+                        SET     id_client=:id_client
+                        WHERE   id_order=:id_order";          
+            $pdo = PDOFactory::getConexao();
+            $comando = $pdo->prepare($qUpdate);
+            $comando->bindParam(":id_order",    $id_order);
+            $comando->bindParam(":id_client",   $id_client);
+            $comando->execute();
+            return OrderDAO::readByOrder($id_order);
+        }
         public function updateStatus($id_order, $order_status)
         {
             $qUpdate = "UPDATE  tb_order

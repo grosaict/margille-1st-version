@@ -1,7 +1,6 @@
 class ProductOrder {
-    constructor(product, qtd_product, product_amount){
-        product         = product;
-        qtd_product     = qtd_product;
-        product_amount  = product_amount;
+    constructor(id_product, qtd_product){
+        this.id_product     = id_product;
+        this.qtd_product    = qtd_product;
     }
 }

@@ -196,36 +196,36 @@ class MargilleHttpService{
         xhttp.send();
     }
 
-    // insertProduct(ok, state, product) {
-    //     var xhttp = new XMLHttpRequest();
-    //     xhttp.onreadystatechange = function () {
-    //         if (this.readyState === 4 && this.status === 201) {
-    //             ok();
-    //         }
-    //         else if(this.status !== 201){
-    //             state(this.status);
-    //         }
-    //     };
-    //     xhttp.open("POST", this.uriProduct, true);
-    //     xhttp.setRequestHeader("Content-Type","application/json");
-    //     xhttp.send(JSON.stringify(product));
-    // }
+    insertOrder(ok, state, order) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 201) {
+                ok();
+            }
+            else if(this.status !== 201){
+                state(this.status);
+            }
+        };
+        xhttp.open("POST", this.uriOrder, true);
+        xhttp.setRequestHeader("Content-Type","application/json");
+        xhttp.send(JSON.stringify(order));
+    }
 
-    // editProduct(ok, state, product) {
-    //     var newUri = this.uriProduct + "/" + product.id_product;
-    //     var xhttp = new XMLHttpRequest();
-    //     xhttp.onreadystatechange = function () {
-    //         if (this.readyState === 4 && this.status === 202) {
-    //             ok();
-    //         }
-    //         else if(this.status !== 202){
-    //             state(this.status);
-    //         }
-    //     };
-    //     xhttp.open("PUT", newUri, true);
-    //     xhttp.setRequestHeader("Content-Type","application/json");
-    //     xhttp.send(JSON.stringify(product));
-    // }
+    editOrder(ok, state, order) {
+        var newUri = this.uriOrder + "/" + order.id_order;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 202) {
+                ok();
+            }
+            else if(this.status !== 202){
+                state(this.status);
+            }
+        };
+        xhttp.open("PUT", newUri, true);
+        xhttp.setRequestHeader("Content-Type","application/json");
+        xhttp.send(JSON.stringify(order));
+    }
 
     deleteOrder(ok, state, id_order) {
         var newUri = this.uriOrder + "/" + id_order + "/2";

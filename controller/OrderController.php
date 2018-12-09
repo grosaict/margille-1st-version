@@ -33,9 +33,9 @@
             foreach ($array_productOrder as $productOrder) {
                 // you must convert $productOrder in object to access its parameters
                 $productOrder                   = (object) $productOrder;
-                $product                        = $dao_product->read($productOrder->id_product);
+                $product                        = $dao_product->read((int) $productOrder->id_product);
                 $productOrder->id_order         = $order->id_order;
-                $productOrder->product_amount   = round(($productOrder->qtd_product * $product->product_price), 2);
+                $productOrder->product_amount   = round(((double) $productOrder->qtd_product * $product->product_price), 2);
 
                 // you must update $order->order_amount to update Order on DB
                 $order->order_amount += $productOrder->product_amount;
@@ -73,6 +73,35 @@
             $response = $response->withHeader('Content-type', 'application/json');    
             $response = $response->withStatus(200);
             return $response;
+        }
+        public function editOrder($request, $response, $args)
+        {
+            $id_order = (int) $args['id_order'];
+            $var = $request->getParsedBody();
+            $id_client = (int) $var['id_client'];
+            $array_productOrder = (object) $var['productOrder'];
+
+            $dao_order          = new OrderDAO;
+            $dao_product        = new ProductDAO;
+            $dao_product_order  = new ProductOrderDAO;
+
+            $order              = $dao_order->updateClient($id_order, $id_client);
+            $dao_product_order->delete($order->id_order);
+
+            foreach ($array_productOrder as $productOrder) {
+                $productOrder                   = (object) $productOrder;
+                $product                        = $dao_product->read((int) $productOrder->id_product);
+                $productOrder->id_order         = $order->id_order;
+                $productOrder->product_amount   = round(((double) $productOrder->qtd_product * $product->product_price), 2);
+                $order->order_amount += $productOrder->product_amount;
+                $dao_product_order->create($productOrder);
+             }
+            $order = $dao_order->updateAmount($order->id_order, $order->order_amount);
+        
+            $response = $response->withJson($order);
+            $response = $response->withHeader('Content-type', 'application/json');    
+            $response = $response->withStatus(202);
+            return $response;        
         }
         public function updateStatus($request, $response, $args)
         {

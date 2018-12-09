@@ -30,6 +30,7 @@ $app->group('/order', function(){
     $this->get('','OrderController:list');
     $this->post('','OrderController:create');
     $this->get('/{id_order:[0-99]+}','OrderController:readByOrder');
+    $this->put('/{id_order:[0-99]+}','OrderController:editOrder');
     $this->put('/{id_order:[0-99]+}/{order_status:[1-2]+}','OrderController:updateStatus');
 });
 
