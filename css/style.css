@@ -4,7 +4,8 @@
     padding:            0px;
 }
 
-head, body {
+head,
+body {
     width:              80vw;
     margin:             2vh 10vw;
 }
@@ -26,12 +27,19 @@ a {
     color:          red;
 }
 
-h2, .option, .crudButton, .my_form, .input_form, label {
+h2,
+label,
+.option,
+.crudButton,
+.my_form,
+.input_form,
+.orderSummary {
     float:              left;
     text-align:         center;
 }
 
-.option, .crudButton {
+.option,
+.crudButton {
     width:              20%;
     height:             auto;
     margin:             auto calc(40% / 6);
@@ -47,7 +55,8 @@ h2, .option, .crudButton, .my_form, .input_form, label {
     background-color:   lightgreen;
 }
 
-.option:hover, .crudButton:hover {
+.option:hover,
+.crudButton:hover {
     color:              white;
     background-color:   lightcoral;
 }
@@ -62,13 +71,20 @@ table {
     width:              100%;
 }
 
-td, th {
+td,
+th {
     border:             0.1px solid #dddddd;
     text-align:         left;
     padding:            8px;
 }
 
-tr:nth-child(even) {
+.trOrder,
+#theadOrder {
+    background-color:   lightcoral;
+}
+
+tr:nth-child(even),
+#theadProductOrder {
     background-color:   lightskyblue;
 }
 
@@ -92,4 +108,8 @@ input {
     border-radius:      10px;
     background-color: white;
     margin:             5px auto;
+}
+
+p {
+    color: black;
 }

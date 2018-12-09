@@ -9,7 +9,8 @@
         public function list()
         {
 		    $query =   'SELECT  id_order, id_client, order_status, order_amount
-                        FROM    tb_order';
+                        FROM    tb_order
+                        WHERE   order_status=1';
     		$pdo = PDOFactory::getConexao();
 	    	$comando = $pdo->prepare($query);
     		$comando->execute();
