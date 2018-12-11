@@ -190,7 +190,6 @@ class MargilleController {
             order.productOrder.push(pOrder);
         }
         const ok                    = () => this.updateContentbox("<h1>Registro Alterado com Sucesso</h1>");
-        console.log(order);
         this.service.editOrder(ok, this.state, order);
     }
 

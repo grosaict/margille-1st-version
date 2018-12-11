@@ -20,12 +20,12 @@
         public function create($request, $response)
         {
             $var = $request->getParsedBody();
-            $id_client = (int) $var['id_client'];
+            $id_client          = (int) $var['id_client'];
             $array_productOrder = (object) $var['productOrder'];
 
             // Creating the order
-            $dao_order  = new OrderDAO;
-            $order      = $dao_order->create($id_client);
+            $dao_order          = new OrderDAO;
+            $order              = $dao_order->create($id_client);
 
             $dao_product        = new ProductDAO;
             $dao_product_order  = new ProductOrderDAO;
@@ -76,16 +76,17 @@
         }
         public function editOrder($request, $response, $args)
         {
-            $id_order = (int) $args['id_order'];
-            $var = $request->getParsedBody();
-            $id_client = (int) $var['id_client'];
-            $array_productOrder = (object) $var['productOrder'];
+            $id_order               = (int) $args['id_order'];
+            $var                    = $request->getParsedBody();
+            $id_client              = (int) $var['id_client'];
+            $array_productOrder     = (object) $var['productOrder'];
 
-            $dao_order          = new OrderDAO;
-            $dao_product        = new ProductDAO;
-            $dao_product_order  = new ProductOrderDAO;
+            $dao_order              = new OrderDAO;
+            $dao_product            = new ProductDAO;
+            $dao_product_order      = new ProductOrderDAO;
 
-            $order              = $dao_order->updateClient($id_order, $id_client);
+            $order                  = $dao_order->updateClient($id_order, $id_client);
+            $order->order_amount    = 0;
             $dao_product_order->delete($order->id_order);
 
             foreach ($array_productOrder as $productOrder) {
